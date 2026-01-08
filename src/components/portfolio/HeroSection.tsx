@@ -1,4 +1,4 @@
-import { ArrowDown, MapPin, Github, Linkedin, Mail, Sparkles } from 'lucide-react';
+import { ArrowDown, MapPin, Github, Linkedin, Mail, Sparkles, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { usePortfolio } from '@/context/PortfolioContext';
 
@@ -68,6 +68,7 @@ export const HeroSection = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 rounded-full bg-card border border-border hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 shadow-sm hover:shadow-[var(--shadow-glow)]"
+              title="GitHub"
             >
               <Github className="w-5 h-5" />
             </a>
@@ -76,12 +77,23 @@ export const HeroSection = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 rounded-full bg-card border border-border hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 shadow-sm hover:shadow-[var(--shadow-glow)]"
+              title="LinkedIn"
             >
               <Linkedin className="w-5 h-5" />
             </a>
             <a
+              href={`https://${data.instagram}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 rounded-full bg-card border border-border hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 shadow-sm hover:shadow-[var(--shadow-glow)]"
+              title="Instagram"
+            >
+              <Instagram className="w-5 h-5" />
+            </a>
+            <a
               href={`mailto:${data.email}`}
               className="p-3 rounded-full bg-card border border-border hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 shadow-sm hover:shadow-[var(--shadow-glow)]"
+              title="Email"
             >
               <Mail className="w-5 h-5" />
             </a>

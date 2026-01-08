@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Github, Linkedin, Send, MessageCircle, CheckCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Github, Linkedin, Send, MessageCircle, CheckCircle, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -78,15 +78,18 @@ export const ContactSection = () => {
                   </div>
                 </a>
 
-                <div className="flex items-center gap-4 p-4 friendly-card">
-                  <div className="w-14 h-14 rounded-2xl bg-lavender flex items-center justify-center">
-                    <Phone className="w-6 h-6 text-lavender-foreground" />
+                <a
+                  href={`tel:${data.phone.replace(/\s/g, '')}`}
+                  className="flex items-center gap-4 p-4 friendly-card group"
+                >
+                  <div className="w-14 h-14 rounded-2xl bg-lavender flex items-center justify-center group-hover:bg-primary transition-colors">
+                    <Phone className="w-6 h-6 text-lavender-foreground group-hover:text-primary-foreground" />
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Phone</p>
                     <p className="text-foreground font-medium">{data.phone}</p>
                   </div>
-                </div>
+                </a>
 
                 <div className="flex items-center gap-4 p-4 friendly-card">
                   <div className="w-14 h-14 rounded-2xl bg-peach flex items-center justify-center">
@@ -106,6 +109,7 @@ export const ContactSection = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-4 friendly-card hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                  title="GitHub"
                 >
                   <Github className="w-6 h-6" />
                 </a>
@@ -114,8 +118,18 @@ export const ContactSection = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-4 friendly-card hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                  title="LinkedIn"
                 >
                   <Linkedin className="w-6 h-6" />
+                </a>
+                <a
+                  href={`https://${data.instagram}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-4 friendly-card hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                  title="Instagram"
+                >
+                  <Instagram className="w-6 h-6" />
                 </a>
               </div>
             </div>
