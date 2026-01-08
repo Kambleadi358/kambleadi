@@ -1,15 +1,22 @@
-import { GraduationCap, Calendar, Award } from 'lucide-react';
+import { GraduationCap, Calendar, Award, BookOpen } from 'lucide-react';
 import { usePortfolio } from '@/context/PortfolioContext';
 
 export const EducationSection = () => {
   const { data } = usePortfolio();
 
   return (
-    <section id="education" className="py-20 md:py-32">
-      <div className="container mx-auto px-4">
+    <section id="education" className="py-20 md:py-32 relative overflow-hidden">
+      {/* Decorative background */}
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-peach/50 rounded-full blur-3xl translate-y-1/2" />
+      
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-lavender rounded-full text-lavender-foreground text-sm font-medium mb-4">
+              <BookOpen className="w-4 h-4" />
+              <span>Academic background</span>
+            </div>
             <h2 className="section-heading">Education</h2>
             <p className="section-subheading mx-auto">
               My academic background and qualifications.
@@ -21,13 +28,17 @@ export const EducationSection = () => {
             {data.education.map((edu, index) => (
               <div
                 key={edu.id}
-                className="glass-card p-6 md:p-8 card-hover"
+                className="friendly-card p-6 md:p-8"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
                   {/* Icon */}
-                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <GraduationCap className="w-7 h-7 text-primary" />
+                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0 ${
+                    index % 2 === 0 ? 'bg-primary/10' : 'bg-lavender'
+                  }`}>
+                    <GraduationCap className={`w-8 h-8 ${
+                      index % 2 === 0 ? 'text-primary' : 'text-lavender-foreground'
+                    }`} />
                   </div>
 
                   {/* Content */}
@@ -37,19 +48,19 @@ export const EducationSection = () => {
                         {edu.degree}
                       </h3>
                       {edu.grade && (
-                        <div className="flex items-center gap-2 text-primary">
+                        <div className="inline-flex items-center gap-2 text-primary bg-primary/10 px-3 py-1 rounded-full">
                           <Award className="w-4 h-4" />
-                          <span className="font-semibold">{edu.grade}</span>
+                          <span className="font-semibold text-sm">{edu.grade}</span>
                         </div>
                       )}
                     </div>
-                    <p className="text-primary font-medium mb-2">{edu.institution}</p>
+                    <p className="text-primary font-semibold mb-2">{edu.institution}</p>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
                       <Calendar className="w-4 h-4" />
                       <span>{edu.duration}</span>
                     </div>
                     {edu.activities && (
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-muted-foreground bg-secondary/50 px-4 py-2 rounded-xl inline-block">
                         <span className="font-medium">Activities:</span> {edu.activities}
                       </p>
                     )}

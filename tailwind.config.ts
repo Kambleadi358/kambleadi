@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Outfit", "sans-serif"],
-        body: ["Plus Jakarta Sans", "sans-serif"],
+        display: ["Poppins", "sans-serif"],
+        body: ["Open Sans", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -42,6 +42,14 @@ export default {
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
+        },
+        peach: {
+          DEFAULT: "hsl(var(--peach))",
+          foreground: "hsl(var(--peach-foreground))",
+        },
+        lavender: {
+          DEFAULT: "hsl(var(--lavender))",
+          foreground: "hsl(var(--lavender-foreground))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
