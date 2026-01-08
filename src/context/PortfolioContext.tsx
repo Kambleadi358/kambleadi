@@ -48,6 +48,7 @@ export interface PortfolioData {
   phone: string;
   linkedin: string;
   github: string;
+  instagram: string;
   skills: Skill[];
   projects: Project[];
   experience: Experience[];
@@ -55,16 +56,19 @@ export interface PortfolioData {
   awards: Award[];
 }
 
+import profilePhoto from '@/assets/profile-photo.jpg';
+
 const defaultData: PortfolioData = {
   name: "Aditya Kamble",
   title: "B.Tech Computer Engineering Student @ VIT'28 | Best Outgoing Student 24-25 @ SVIP | Intern @ CodeSoft | Ex-Intern @ Operant Tech & IT Solutions LLP | Co-Founder of projectCave",
   location: "India",
-  profileImage: "",
+  profileImage: profilePhoto,
   about: "Pursuing B.Tech in Computer Engineering at VIT'28. Passionate about software development, web development, and ERP systems. Co-founder of projectCave, building solutions for technical students. Recognized as Best Outgoing Student 24-25 at SVIP with experience across multiple internships in software development.",
-  email: "aditya.kamble@email.com",
-  phone: "+91 XXXXXXXXXX",
-  linkedin: "linkedin.com/in/adityakamble",
-  github: "github.com/adityakamble",
+  email: "aditya.1252070010@vit.edu",
+  phone: "+91 8275956954",
+  linkedin: "www.linkedin.com/in/kambledi358",
+  github: "github.com/Kambleadi358",
+  instagram: "www.instagram.com/bizbyte_adi",
   skills: [
     { id: "1", name: "Network Marketing", level: 85 },
     { id: "2", name: "Enterprise Resource Planning (ERP)", level: 90 },
