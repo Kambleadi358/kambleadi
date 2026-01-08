@@ -1,5 +1,6 @@
 import { Award, Briefcase, GraduationCap, Rocket, Heart } from 'lucide-react';
 import { usePortfolio } from '@/context/PortfolioContext';
+import aboutPhoto from '@/assets/about-photo.jpg';
 
 const highlights = [
   { icon: Award, label: 'Best Outgoing Student', value: '24-25', color: 'pastel-blue' },
@@ -17,7 +18,7 @@ export const AboutSection = () => {
       <div className="absolute top-0 right-0 w-96 h-96 bg-lavender/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-lavender rounded-full text-lavender-foreground text-sm font-medium mb-4">
@@ -28,10 +29,49 @@ export const AboutSection = () => {
             <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
           </div>
 
-          {/* About Text */}
-          <p className="text-lg md:text-xl text-muted-foreground text-center mb-16 leading-relaxed max-w-3xl mx-auto">
-            {data.about}
-          </p>
+          {/* About Content with Image */}
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center mb-16">
+            {/* Image */}
+            <div className="order-2 md:order-1">
+              <div className="relative">
+                {/* Decorative frame */}
+                <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 via-lavender to-peach rounded-3xl blur-sm" />
+                <div className="relative rounded-2xl overflow-hidden shadow-[var(--shadow-glow)]">
+                  <img 
+                    src={aboutPhoto} 
+                    alt="Aditya Kamble" 
+                    className="w-full h-auto object-cover"
+                  />
+                </div>
+                {/* Floating badge */}
+                <div className="absolute -bottom-4 -right-4 md:-right-6 bg-card border border-border rounded-2xl px-4 py-3 shadow-lg">
+                  <p className="text-sm text-muted-foreground">Experience</p>
+                  <p className="text-2xl font-display font-bold text-primary">3+ Years</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Text Content */}
+            <div className="order-1 md:order-2">
+              <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-6">
+                Turning Ideas into <span className="text-primary">Digital Reality</span>
+              </h3>
+              <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                {data.about}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <span className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                  Software Development
+                </span>
+                <span className="px-4 py-2 bg-lavender text-lavender-foreground rounded-full text-sm font-medium">
+                  Web Development
+                </span>
+                <span className="px-4 py-2 bg-peach text-peach-foreground rounded-full text-sm font-medium">
+                  ERP Systems
+                </span>
+              </div>
+            </div>
+          </div>
 
           {/* Highlights Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
