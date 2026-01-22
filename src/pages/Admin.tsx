@@ -2,16 +2,16 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   User, FileText, Code, Briefcase, GraduationCap, Trophy, 
-  Mail, LogOut, Save, Plus, Trash2, ArrowLeft, Image
+  Mail, LogOut, Save, Plus, Trash2, ArrowLeft, Image, FileDown, FolderLock
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { usePortfolio, Skill, Project, Experience, Education, Award } from '@/context/PortfolioContext';
+import { usePortfolio, Skill, Project, Experience, Education, Award, Document } from '@/context/PortfolioContext';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
 
-type Tab = 'profile' | 'about' | 'skills' | 'projects' | 'experience' | 'education' | 'awards' | 'contact';
+type Tab = 'profile' | 'about' | 'skills' | 'projects' | 'experience' | 'education' | 'awards' | 'contact' | 'documents';
 
 const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
   { id: 'profile', label: 'Profile', icon: User },
@@ -22,6 +22,7 @@ const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
   { id: 'education', label: 'Education', icon: GraduationCap },
   { id: 'awards', label: 'Awards', icon: Trophy },
   { id: 'contact', label: 'Contact', icon: Mail },
+  { id: 'documents', label: 'Documents', icon: FolderLock },
 ];
 
 const Admin = () => {
@@ -166,6 +167,28 @@ const Admin = () => {
     }));
   };
 
+  // Documents handlers
+  const addDocument = () => {
+    setFormData(prev => ({
+      ...prev,
+      documents: [...prev.documents, { id: generateId(), name: '', url: '' }]
+    }));
+  };
+
+  const updateDocument = (id: string, field: keyof Document, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      documents: prev.documents.map(d => d.id === id ? { ...d, [field]: value } : d)
+    }));
+  };
+
+  const deleteDocument = (id: string) => {
+    setFormData(prev => ({
+      ...prev,
+      documents: prev.documents.filter(d => d.id !== id)
+    }));
+  };
+
   if (!isAdmin) return null;
 
   return (
@@ -273,6 +296,20 @@ const Admin = () => {
                         )}
                       </div>
                     </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2">CV/Resume URL</label>
+                    <div className="flex gap-4 items-center">
+                      <Input
+                        value={formData.cvUrl || ''}
+                        onChange={(e) => setFormData(prev => ({ ...prev, cvUrl: e.target.value }))}
+                        placeholder="https://drive.google.com/your-cv.pdf"
+                        className="bg-secondary/50 flex-grow"
+                      />
+                      <FileDown className="w-6 h-6 text-muted-foreground flex-shrink-0" />
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">Add a link to your CV (Google Drive, Dropbox, etc.)</p>
                   </div>
                 </div>
               )}
@@ -474,11 +511,17 @@ const Admin = () => {
                             className="bg-secondary/50"
                           />
                         </div>
-                        <div className="grid md:grid-cols-2 gap-4">
+                        <div className="grid md:grid-cols-3 gap-4">
                           <Input
                             value={edu.grade || ''}
                             onChange={(e) => updateEducation(edu.id, 'grade', e.target.value)}
-                            placeholder="Grade (optional)"
+                            placeholder="Grade/Percentage (optional)"
+                            className="bg-secondary/50"
+                          />
+                          <Input
+                            value={edu.cgpa || ''}
+                            onChange={(e) => updateEducation(edu.id, 'cgpa', e.target.value)}
+                            placeholder="CGPA (optional)"
                             className="bg-secondary/50"
                           />
                           <Input
@@ -580,6 +623,53 @@ const Admin = () => {
                         className="bg-secondary/50"
                       />
                     </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Documents Tab */}
+              {activeTab === 'documents' && (
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h2 className="text-2xl font-display font-bold">Academic Documents</h2>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Add documents with their names and URLs. Access via: /documents
+                      </p>
+                    </div>
+                    <Button onClick={addDocument} variant="outline">
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add Document
+                    </Button>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    {formData.documents.map((doc) => (
+                      <div key={doc.id} className="p-4 bg-secondary/30 rounded-lg space-y-4">
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="grid md:grid-cols-2 gap-4 flex-grow">
+                            <Input
+                              value={doc.name}
+                              onChange={(e) => updateDocument(doc.id, 'name', e.target.value)}
+                              placeholder="Document name (e.g., 10th Marksheet)"
+                              className="bg-secondary/50"
+                            />
+                            <Input
+                              value={doc.url}
+                              onChange={(e) => updateDocument(doc.id, 'url', e.target.value)}
+                              placeholder="Document URL (Google Drive, etc.)"
+                              className="bg-secondary/50"
+                            />
+                          </div>
+                          <Button variant="ghost" size="icon" onClick={() => deleteDocument(doc.id)}>
+                            <Trash2 className="w-4 h-4 text-destructive" />
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                    {formData.documents.length === 0 && (
+                      <p className="text-muted-foreground text-center py-8">No documents added yet. Click "Add Document" to start.</p>
+                    )}
                   </div>
                 </div>
               )}

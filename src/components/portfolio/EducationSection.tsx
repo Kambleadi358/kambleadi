@@ -53,6 +53,12 @@ export const EducationSection = () => {
                           <span className="font-semibold text-sm">{edu.grade}</span>
                         </div>
                       )}
+                      {edu.cgpa && (
+                        <div className="inline-flex items-center gap-2 text-lavender-foreground bg-lavender px-3 py-1 rounded-full">
+                          <Award className="w-4 h-4" />
+                          <span className="font-semibold text-sm">CGPA: {edu.cgpa}</span>
+                        </div>
+                      )}
                     </div>
                     <p className="text-primary font-semibold mb-2">{edu.institution}</p>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
