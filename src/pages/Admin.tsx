@@ -30,7 +30,11 @@ const Admin = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState<Tab>('profile');
-  const [formData, setFormData] = useState(data);
+  const [formData, setFormData] = useState(() => ({
+    ...data,
+    documents: data.documents || [],
+    cvUrl: data.cvUrl || '',
+  }));
 
   useEffect(() => {
     if (!isAdmin) {
@@ -39,7 +43,11 @@ const Admin = () => {
   }, [isAdmin, navigate]);
 
   useEffect(() => {
-    setFormData(data);
+    setFormData({
+      ...data,
+      documents: data.documents || [],
+      cvUrl: data.cvUrl || '',
+    });
   }, [data]);
 
   const handleSave = () => {
