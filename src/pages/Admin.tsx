@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   User, FileText, Code, Briefcase, GraduationCap, Trophy, 
-  Mail, LogOut, Save, Plus, Trash2, ArrowLeft, Image, FileDown, FolderLock
+  Mail, LogOut, Save, Plus, Trash2, ArrowLeft, Image, FileDown, FolderLock, Upload
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -288,26 +288,60 @@ const Admin = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">Profile Image URL</label>
-                    <div className="flex gap-4">
-                      <Input
-                        value={formData.profileImage}
-                        onChange={(e) => setFormData(prev => ({ ...prev, profileImage: e.target.value }))}
-                        placeholder="https://example.com/your-photo.jpg"
-                        className="bg-secondary/50 flex-grow"
-                      />
-                      <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center overflow-hidden flex-shrink-0">
+                    <label className="block text-sm font-medium mb-2">Profile Image</label>
+                    <div className="flex gap-4 items-start">
+                      <div className="flex-grow space-y-2">
+                        <div className="flex gap-2">
+                          <label className="flex-grow cursor-pointer">
+                            <div className="flex items-center gap-2 px-4 py-2 bg-secondary/50 border border-border rounded-md hover:bg-secondary transition-colors">
+                              <Upload className="w-4 h-4" />
+                              <span className="text-sm">Upload Image</span>
+                            </div>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                  if (file.size > 500000) {
+                                    toast({
+                                      title: "File too large",
+                                      description: "Please use an image under 500KB for best performance.",
+                                      variant: "destructive",
+                                    });
+                                    return;
+                                  }
+                                  const reader = new FileReader();
+                                  reader.onloadend = () => {
+                                    setFormData(prev => ({ ...prev, profileImage: reader.result as string }));
+                                  };
+                                  reader.readAsDataURL(file);
+                                }
+                              }}
+                            />
+                          </label>
+                        </div>
+                        <p className="text-xs text-muted-foreground">Or paste image URL:</p>
+                        <Input
+                          value={typeof formData.profileImage === 'string' && !formData.profileImage.startsWith('data:') ? formData.profileImage : ''}
+                          onChange={(e) => setFormData(prev => ({ ...prev, profileImage: e.target.value }))}
+                          placeholder="https://example.com/your-photo.jpg"
+                          className="bg-secondary/50"
+                        />
+                      </div>
+                      <div className="w-20 h-20 rounded-full bg-secondary flex items-center justify-center overflow-hidden flex-shrink-0 border-2 border-border">
                         {formData.profileImage ? (
                           <img src={formData.profileImage} alt="Preview" className="w-full h-full object-cover" />
                         ) : (
-                          <Image className="w-6 h-6 text-muted-foreground" />
+                          <Image className="w-8 h-8 text-muted-foreground" />
                         )}
                       </div>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">CV/Resume URL</label>
+                    <label className="block text-sm font-medium mb-2">CV/Resume Link</label>
                     <div className="flex gap-4 items-center">
                       <Input
                         value={formData.cvUrl || ''}
@@ -317,7 +351,9 @@ const Admin = () => {
                       />
                       <FileDown className="w-6 h-6 text-muted-foreground flex-shrink-0" />
                     </div>
-                    <p className="text-xs text-muted-foreground mt-1">Add a link to your CV (Google Drive, Dropbox, etc.)</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Upload your CV to Google Drive or Dropbox and paste the shareable link here.
+                    </p>
                   </div>
                 </div>
               )}
