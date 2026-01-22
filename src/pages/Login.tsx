@@ -101,7 +101,7 @@ const Login = () => {
           </form>
 
           <p className="text-xs text-muted-foreground text-center mt-6">
-            Hint: admin / aditya2024
+            Contact admin for credentials
           </p>
         </div>
       </div>

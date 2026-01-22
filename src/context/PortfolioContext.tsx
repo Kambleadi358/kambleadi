@@ -28,7 +28,14 @@ export interface Education {
   degree: string;
   duration: string;
   grade?: string;
+  cgpa?: string;
   activities?: string;
+}
+
+export interface Document {
+  id: string;
+  name: string;
+  url: string;
 }
 
 export interface Award {
@@ -49,11 +56,13 @@ export interface PortfolioData {
   linkedin: string;
   github: string;
   instagram: string;
+  cvUrl: string;
   skills: Skill[];
   projects: Project[];
   experience: Experience[];
   education: Education[];
   awards: Award[];
+  documents: Document[];
 }
 
 import profilePhoto from '@/assets/profile-photo.jpg';
@@ -69,6 +78,7 @@ const defaultData: PortfolioData = {
   linkedin: "www.linkedin.com/in/kambledi358",
   github: "github.com/Kambleadi358",
   instagram: "www.instagram.com/bizbyte_adi",
+  cvUrl: "",
   skills: [
     { id: "1", name: "Network Marketing", level: 85 },
     { id: "2", name: "Enterprise Resource Planning (ERP)", level: 90 },
@@ -171,7 +181,8 @@ const defaultData: PortfolioData = {
       year: "2024-25",
       description: "Recognized at SVIP for overall excellence in academics and extracurriculars"
     }
-  ]
+  ],
+  documents: []
 };
 
 interface PortfolioContextType {
@@ -204,7 +215,7 @@ export const PortfolioProvider: React.FC<{ children: ReactNode }> = ({ children 
 
   const login = (username: string, password: string): boolean => {
     // Simple hardcoded authentication
-    if (username === 'admin' && password === 'aditya2024') {
+    if (username === 'admin' && password === 'Kamble@358') {
       setIsAdmin(true);
       localStorage.setItem('isAdmin', 'true');
       return true;

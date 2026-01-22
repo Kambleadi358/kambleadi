@@ -1,14 +1,13 @@
-import { ArrowDown, MapPin, Github, Linkedin, Mail, Sparkles, Instagram } from 'lucide-react';
+import { ArrowDown, MapPin, Github, Linkedin, Mail, Sparkles, Instagram, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { usePortfolio } from '@/context/PortfolioContext';
 
 export const HeroSection = () => {
   const { data } = usePortfolio();
 
-  const scrollToProjects = () => {
-    const element = document.querySelector('#projects');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const handleDownloadCV = () => {
+    if (data.cvUrl) {
+      window.open(data.cvUrl, '_blank');
     }
   };
 
@@ -101,10 +100,17 @@ export const HeroSection = () => {
 
           {/* CTA */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up stagger-4">
-            <Button variant="hero" size="xl" onClick={scrollToProjects} className="rounded-full">
-              View My Work
-              <ArrowDown className="w-5 h-5 ml-2" />
-            </Button>
+            {data.cvUrl ? (
+              <Button variant="hero" size="xl" onClick={handleDownloadCV} className="rounded-full">
+                Download CV
+                <Download className="w-5 h-5 ml-2" />
+              </Button>
+            ) : (
+              <Button variant="hero" size="xl" onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })} className="rounded-full">
+                View My Work
+                <ArrowDown className="w-5 h-5 ml-2" />
+              </Button>
+            )}
             <Button variant="heroOutline" size="xl" onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })} className="rounded-full">
               Get In Touch
             </Button>

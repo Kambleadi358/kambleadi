@@ -1,5 +1,6 @@
-import { ExternalLink, Folder, Code } from 'lucide-react';
+import { ExternalLink, Folder, Code, Github } from 'lucide-react';
 import { usePortfolio } from '@/context/PortfolioContext';
+import { Button } from '@/components/ui/button';
 
 export const ProjectsSection = () => {
   const { data } = usePortfolio();
@@ -24,9 +25,18 @@ export const ProjectsSection = () => {
               <span>Featured work</span>
             </div>
             <h2 className="section-heading">Projects</h2>
-            <p className="section-subheading mx-auto">
+            <p className="section-subheading mx-auto mb-6">
               A selection of projects I've worked on, showcasing my skills in development and problem-solving.
             </p>
+            <a
+              href={`https://${data.github}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-full text-sm font-medium hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
+            >
+              <Github className="w-4 h-4" />
+              <span>View More on GitHub</span>
+            </a>
           </div>
 
           {/* Projects Grid */}
