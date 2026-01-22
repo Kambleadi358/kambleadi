@@ -14,17 +14,6 @@ export const AboutSection = () => {
 
   return (
     <section id="about" className="py-20 md:py-32 relative overflow-hidden">
-      {/* Faint background image */}
-      <div 
-        className="absolute inset-0 opacity-[0.08]"
-        style={{
-          backgroundImage: `url(${aboutPhoto})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      />
-      
       {/* Decorative background */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-lavender/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
       
