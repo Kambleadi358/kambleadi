@@ -1,96 +1,67 @@
-import { Award, Briefcase, GraduationCap, Rocket, Heart } from 'lucide-react';
+import { FileDown, GraduationCap, Code2, Layers } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { usePortfolio } from '@/context/PortfolioContext';
 import aboutPhoto from '@/assets/about-photo.jpg';
-
-const highlights = [
-  { icon: Award, label: 'Best Outgoing Student', value: '24-25', color: 'pastel-blue' },
-  { icon: Briefcase, label: 'Internships', value: '3+', color: 'pastel-lavender' },
-  { icon: Rocket, label: 'Co-Founder', value: 'projectCave', color: 'pastel-peach' },
-  { icon: GraduationCap, label: 'Diploma Grade', value: '95.66%', color: 'pastel-blue' },
-];
 
 export const AboutSection = () => {
   const { data } = usePortfolio();
 
+  const facts = [
+    { icon: GraduationCap, label: 'B.Tech Computer Engineering', value: 'VIT Pune · CGPA 9.07' },
+    { icon: Code2, label: 'Diploma Computer Engineering', value: '95.66% · MSBTE' },
+    { icon: Layers, label: 'Focus areas', value: 'Full stack web, databases, AI tooling' },
+  ];
+
   return (
-    <section id="about" className="py-20 md:py-32 relative overflow-hidden">
-      {/* Decorative background */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-lavender/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-      
-      <div className="container mx-auto px-4 relative z-10">
+    <section id="about" className="py-20 md:py-28 border-t border-border">
+      <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-lavender rounded-full text-lavender-foreground text-sm font-medium mb-4">
-              <Heart className="w-4 h-4" />
-              <span>Get to know me</span>
-            </div>
-            <h2 className="section-heading">About Me</h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
+          <div className="mb-10">
+            <p className="eyebrow">About</p>
+            <h2 className="section-heading">Engineering background & current focus</h2>
           </div>
 
-          {/* About Content with Image */}
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center mb-16">
-            {/* Image */}
-            <div className="order-2 md:order-1">
-              <div className="relative">
-                {/* Decorative frame */}
-                <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 via-lavender to-peach rounded-3xl blur-sm" />
-                <div className="relative rounded-2xl overflow-hidden shadow-[var(--shadow-glow)]">
-                  <img 
-                    src={aboutPhoto} 
-                    alt="Aditya Kamble" 
-                    className="w-full h-auto object-cover"
-                  />
-                </div>
-              </div>
+          <div className="grid md:grid-cols-[0.8fr_1.2fr] gap-8 lg:gap-12 items-start">
+            <div className="rounded-xl overflow-hidden border border-border bg-card aspect-[4/5] max-w-xs">
+              <img
+                src={aboutPhoto}
+                alt={`${data.name} working on a development project`}
+                loading="lazy"
+                width={400}
+                height={500}
+                className="w-full h-full object-cover object-[center_20%]"
+              />
             </div>
 
-            {/* Text Content */}
-            <div className="order-1 md:order-2">
-              <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-6">
-                Turning Ideas into <span className="text-primary">Digital Reality</span>
-              </h3>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                {data.about}
-              </p>
+            <div>
+              <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-8">{data.about}</p>
+
+              <ul className="space-y-4 mb-8">
+                {facts.map(fact => (
+                  <li key={fact.label} className="flex items-start gap-3">
+                    <span className="mt-0.5 p-2 rounded-md bg-primary/10 text-primary">
+                      <fact.icon className="w-4 h-4" aria-hidden="true" />
+                    </span>
+                    <span>
+                      <span className="block text-sm font-medium text-foreground">{fact.label}</span>
+                      <span className="block text-sm text-muted-foreground">{fact.value}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
               <div className="flex flex-wrap gap-3">
-                <span className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">
-                  Software Development
-                </span>
-                <span className="px-4 py-2 bg-lavender text-lavender-foreground rounded-full text-sm font-medium">
-                  Web Development
-                </span>
-                <span className="px-4 py-2 bg-peach text-peach-foreground rounded-full text-sm font-medium">
-                  ERP Systems
-                </span>
+                <a href={data.cvUrl} download>
+                  <Button className="gap-2">
+                    <FileDown className="w-4 h-4" aria-hidden="true" />
+                    Download Resume
+                  </Button>
+                </a>
+                <a href={data.cvUrl} target="_blank" rel="noopener noreferrer">
+                  <Button variant="outline">View Resume</Button>
+                </a>
               </div>
             </div>
-          </div>
-
-          {/* Highlights Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {highlights.map((item, index) => (
-              <div
-                key={item.label}
-                className="friendly-card p-6 text-center group"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className={`w-14 h-14 mx-auto mb-4 rounded-2xl ${
-                  index % 3 === 0 ? 'bg-primary/10' : index % 3 === 1 ? 'bg-lavender' : 'bg-peach'
-                } flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                  <item.icon className={`w-7 h-7 ${
-                    index % 3 === 0 ? 'text-primary' : index % 3 === 1 ? 'text-lavender-foreground' : 'text-peach-foreground'
-                  }`} />
-                </div>
-                <div className="text-2xl font-display font-bold text-foreground mb-1">
-                  {item.value}
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  {item.label}
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>
